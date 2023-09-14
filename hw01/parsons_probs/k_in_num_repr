@@ -1,0 +1,10 @@
+def k_in_num(k, num): #0given
+while !BLANK:  #1given #blanknum
+if !BLANK == !BLANK % 10:  #2given #blankk #blanknum
+return True #3given
+!BLANK = !BLANK // 10  #2given #blanknum #blanknum
+return False #1given
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK
