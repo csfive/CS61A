@@ -1,8 +1,5 @@
 {
   "editor.tabSize": 4,
-  "editor.fontFamily": "'Input Mono'",
-  "editor.lineHeight": 2.1,
-  "editor.fontWeight": "500",
   "[python]": {
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
