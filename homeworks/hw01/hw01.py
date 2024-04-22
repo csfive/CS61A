@@ -68,12 +68,9 @@ def largest_factor(n):
     >>> largest_factor(13) # factor is 1 since 13 is prime
     1
     """
-    # factor = n - 1
-    factor = n // 2
-    while factor:
+    for factor in range(n // 2, 0, -1):
         if n % factor == 0:
             return factor
-        factor -= 1
 
 
 def hailstone(n):
@@ -95,13 +92,10 @@ def hailstone(n):
     >>> b
     1
     """
-    step = 1
+    steps = 1
     while n != 1:
         print(n)
-        if n % 2 == 0:
-            n //= 2
-        else:
-            n = 3 * n + 1
-        step += 1
+        n = n // 2 if n % 2 == 0 else 3 * n + 1
+        steps += 1
     print(n)
-    return step
+    return steps
