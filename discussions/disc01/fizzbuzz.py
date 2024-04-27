@@ -31,7 +31,7 @@ def fizzbuzz(n):
             print(i)
 
 
-def fizzbuzz2(n):
+def fizzbuzz_alt(n):
     for i in range(1, n + 1):
         ans = ""
         if i % 3 == 0:
