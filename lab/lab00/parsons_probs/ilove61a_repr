@@ -1,0 +1,7 @@
+def ilove61a(): #0given
+true_statement = "I love CS 61A!" #1given
+return !BLANK  #1given #blanktrue_statement
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK
