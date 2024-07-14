@@ -1,0 +1,15 @@
+problem_name: ilove61a
+
+problem_description: |
+  Write a function that returns the string <code>"I love CS 61A!"</code>. <br><br>
+  <pre><code>
+  >>> ilove61a()
+  'I love CS 61A!'
+  </code></pre>
+
+code_lines: |
+  def ilove61a(): #0given
+  true_statement = "I love CS 61A!"
+  return !BLANK #blank
+
+test_fn: ilove61a
