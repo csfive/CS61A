@@ -1,0 +1,34 @@
+{
+    "name": "Homework 1",
+    "endpoint": "cal/cs61a/sp22/hw01",
+    "src": [
+        "hw01.py",
+        "parsons_probs/k_in_num.py"
+    ],
+    "tests": {
+        "hw*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/k_in_num.py:k_in_num": "doctest"
+    },
+    "default_tests": [
+        "a_plus_abs_b",
+        "a_plus_abs_b_syntax_check",
+        "two_of_three",
+        "two_of_three_syntax_check",
+        "largest_factor",
+        "k_in_num"
+    ],
+    "protocols": [
+        "file_contents",
+        "grading",
+        "analytics",
+        "backup"
+    ],
+    "parsons": {
+        "control": {
+            "required": [
+                "k_in_num"
+            ]
+        }
+    }
+}
