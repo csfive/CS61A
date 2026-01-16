@@ -13,5 +13,4 @@ URL="https://cs61a.org/${TYPE}/${NAME}/${NAME}.zip"
 echo "🎯 Target: $URL" && \
 wget -q "$URL" && \
 unzip -q "${NAME}.zip" && \
-echo "✨ $NAME is ready!" && \
-cd "$NAME" || exit 1
+echo "✨ $NAME is ready!"
