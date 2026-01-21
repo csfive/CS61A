@@ -1,0 +1,31 @@
+problem_name: digit_pos_match
+
+problem_description: |
+  A number has a digit-position match if the <code>i</code>th-to-last
+  digit is <code>i</code>. For example, <code>980</code> has the last
+  <code>0</code>th-to-last digit as <code>0</code>. Or <code>98276</code>
+  has the <code>2</code>nd-to-last digit as a <code>2</code>.<br><br>
+
+  Write a function that determine if a number <code>n</code> has a
+  digit-position match at a <code>k</code>th-to-last digit <code>k</code>.
+
+  <pre><code>
+  >> digit_pos_match(980, 0) # last digit is 0
+  True
+  >> digit_pos_match(980, 2) # 2nd-to-last digit is 9, not 2
+  False
+  >> digit_pos_match(98276, 2) # 2nd-to-last digit is 2
+  True
+  >> digit_pos_match(98276, 3) # 3nd-to-last digit is 8, not 3
+  False
+  </code></pre>
+
+code_lines: |
+  def digit_pos_match(n, k): #0given
+  index = !BLANK
+  !BLANK index < k:
+  n = n // 10
+  index = index + !BLANK
+  return n % 10 !BLANK k
+
+test_fn: digit_pos_match

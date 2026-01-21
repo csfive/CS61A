@@ -1,0 +1,11 @@
+def k_occurrence(k, num): #0given
+occurrences = !BLANK #1given #blank0
+while num: #1given
+if num % 10 == !BLANK: #2given #blankk
+occurrences += !BLANK #3given #blank1
+num = num !BLANK 10 #2given #blank//
+return occurrences #1given
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK
