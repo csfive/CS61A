@@ -8,7 +8,7 @@ fi
 NAME=$1
 TYPE=${NAME//[0-9]/}
 [ "$TYPE" = "$NAME" ] && TYPE="proj"
-URL="https://cs61a.org/${TYPE}/${NAME}/${NAME}.zip"
+URL="https://cs61a.vercel.app/${TYPE}/${NAME}/${NAME}.zip"
 
 echo "🎯 Target: $URL" && \
 wget -q "$URL" && \

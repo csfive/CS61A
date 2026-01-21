@@ -1,4 +1,4 @@
-# UCB CS61A
+# UCB CS61A Spring 2022
 
 - [Course Link](https://cs61a.org)
 - [Spring 2022](https://cs61a.vercel.app)
