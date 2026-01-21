@@ -1,0 +1,27 @@
+problem_name: k_occurrence
+
+problem_description: |
+  Complete <code>k_occurrence</code>, a function which returns the number of times the digit
+  <code>k</code> appears in <code>num</code>. 0 is considered to have no digits.
+  <pre><code>
+  >>> k_occurrence(5, 10)
+  0
+  >>> k_occurrence(5, 5115)
+  2
+  >>> k_occurrence(0, 100)
+  2
+  >>> k_occurrence(0, 0)
+  0
+  </code></pre>
+
+code_lines: |
+  def k_occurrence(k, num):  #0given
+  occurrences = !BLANK
+  while num:
+  if num % 10 == !BLANK:
+  occurrences += !BLANK
+  num = num !BLANK 10
+  return occurrences
+
+
+test_fn: k_occurrence
