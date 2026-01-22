@@ -8,4 +8,11 @@ def filter_sequence(cond, start, stop):
     >>> filter_sequence(lambda x: x % 2 == 1, 0, 10) # .Case 2
     25
     """
-    "*** YOUR CODE HERE ***"
+    total = 0
+    while start <= stop:
+        if cond(start):
+            total += start
+        start += 1
+    return total
+
+
