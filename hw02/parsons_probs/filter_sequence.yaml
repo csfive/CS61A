@@ -1,0 +1,26 @@
+problem_name: filter_sequence
+
+problem_description: |
+  Write a function <code>filter_sequence</code> which takes in two integers, <code>start</code> and <code>stop</code>,
+  as well as a function <code>cond</code>, which takes in a single argument and outputs a boolean value.
+  <code>filter_sequence</code> returns the sum of all digits from <code>start</code> to <code>stop</code> (inclusive) for
+  which <code>cond</code> returns <code>True</code>.
+
+  <pre><code>
+  >>> filter_sequence(lambda x: x % 2 == 0, 0, 10)
+  30
+  >>> filter_sequence(lambda x: x % 2 == 1, 0, 10)
+  25
+  </code></pre>
+
+code_lines: |
+  def filter_sequence(cond, start, stop): #0given
+  !BLANK = !BLANK #blank
+  !BLANK = 0 #blank
+  while !BLANK: #blank
+    if !BLANK(!BLANK): #blank
+      !BLANK += !BLANK #blank
+    !BLANK += !BLANK #blank
+  return !BLANK #blank
+
+test_fn: filter_sequence
