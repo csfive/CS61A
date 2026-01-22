@@ -1,0 +1,12 @@
+def digit_index_factory(num, k): #0given
+index = !BLANK  #1given #blank0
+while !BLANK:  #1given #blanknum
+if num % 10 == !BLANK:  #2given #blankk
+return lambda: !BLANK  #3given #blankindex
+index += 1 #2given
+!BLANK //= 10  #2given #blanknum
+return lambda: !BLANK  #1given #blank-1
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK

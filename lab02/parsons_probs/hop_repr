@@ -1,0 +1,6 @@
+def hop(): #0given
+return lambda x: !BLANK  #1given #blanklambda y: y
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK

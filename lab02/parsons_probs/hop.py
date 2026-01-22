@@ -8,4 +8,6 @@ def hop():
     >>> hop()(4)(7) # .Case 3
     7
     """
-    "*** YOUR CODE HERE ***"
+    return lambda x: lambda y: y
+
+
