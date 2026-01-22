@@ -1,0 +1,18 @@
+problem_name: hop
+
+problem_description: |
+  Calling <code>hop</code> returns a curried version of the function <code>f(x, y) = y</code>.
+  <pre><code>
+  >>> hop()(3)(2)
+  2
+  >>> hop()(3)(7)
+  7
+  >>> hop()(4)(7)
+  7
+  </code></pre>
+
+code_lines: |
+  def hop(): #0given
+    return lambda x: !BLANK #blank
+
+test_fn: hop
