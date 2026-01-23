@@ -1,0 +1,34 @@
+problem_name: count_until_larger
+
+problem_description: |
+  Implement the function <code>count_until_larger</code>. <code>count_until_larger</code> takes in a
+  positive integer <code>num</code>. <code>count_until_larger</code> counts the distance between
+  the rightmost digit of <code>num</code> and the nearest greater digit.
+
+  <pre><code>
+  >>> count_until_larger(117)
+  -1
+  >>> count_until_larger(8117)
+  3
+  >>> count_until_larger(9118117)
+  3
+  >>> count_until_larger(8777)
+  3
+  >>> count_until_larger(22)
+  -1
+  >>> count_until_larger(0)
+  -1
+  </code></pre>
+
+code_lines: |
+  def count_until_larger(num): #0given
+    !BLANK = num % 10 #blank
+    !BLANK = 0 #blank
+    while !BLANK: #blank
+      if num % 10 > !BLANK: #blank
+        return !BLANK #blank
+      !BLANK += !BLANK #blank
+      !BLANK //= !BLANK #blank
+    return !BLANK #blank
+
+test_fn: count_until_larger

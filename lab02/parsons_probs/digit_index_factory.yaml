@@ -1,0 +1,32 @@
+
+problem_name: digit_index_factory
+
+problem_description: |
+  Write a function <code>digit_index_factory</code> which takes in two inputs, <code>num</code>
+  and <code>k</code>, and returns a function. The returned function takes no arguments, and
+  outputs the offset between <code>k</code> and the rightmost digit of <code>num</code>. If
+  <code>k</code> is not in <code>num</code>, then the returned function returns <code>-1</code>.
+  Note that <code>0</code> is considered to contain no digits (not even <code>0</code>).
+
+  <pre><code>
+  >>> digit_index_factory(34567, 4)()
+  3
+  >>> digit_index_factory(30001, 0)()
+  1
+  >>> digit_index_factory(34567, 1)()
+  -1
+  >>> digit_index_factory(1234, 0)()
+  -1
+  </code></pre>
+
+code_lines: |
+  def digit_index_factory(num, k): #0given
+    index = !BLANK #blank
+    while !BLANK: #blank
+        if num % 10 == !BLANK: #blank
+            return lambda: !BLANK #blank
+        !BLANK //= 10 #blank
+        index += 1
+    return lambda: !BLANK #blank
+
+test_fn: digit_index_factory

@@ -1,0 +1,13 @@
+def count_until_larger(num): #0given
+!BLANK = 0  #1given #blankcount
+!BLANK = num % 10  #1given #blankrightmost
+while !BLANK:  #1given #blanknum
+if num % 10 > !BLANK:  #2given #blankrightmost
+return !BLANK  #3given #blankcount
+!BLANK += !BLANK  #2given #blankcount #blank1
+!BLANK //= !BLANK  #2given #blanknum #blank10
+return !BLANK  #1given #blank-1
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK
