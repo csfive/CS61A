@@ -1,0 +1,44 @@
+{
+    "name": "Lab 2",
+    "endpoint": "cal/cs61a/sp22/lab02",
+    "src": [
+        "lab02.py",
+        "parsons_probs/hop.py",
+        "parsons_probs/digit_index_factory.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/hop.py:hop": "doctest",
+        "parsons_probs/digit_index_factory.py": "doctest"
+    },
+    "default_tests": [
+        "lambda",
+        "hof-wwpd",
+        "lambda_curry2",
+        "lambda_curry2_syntax_check",
+        "count_cond",
+        "hop",
+        "digit_index_factory"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "analytics",
+        "unlock",
+        "grading",
+        "backup"
+    ],
+    "parsons": {
+        "currying": {
+            "required": [
+                "hop"
+            ]
+        },
+        "count": {
+            "required": [
+                "digit_index_factory"
+            ]
+        }
+    }
+}
