@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': '38a9a8ece5195c808d3cb28573f157ce',
+          'answer': 'The function mapped to the digit 3',
           'choices': [
             'The function mapped to the digit 1',
             'The function mapped to the digit 2',
@@ -13,7 +13,7 @@ test = {
             'The function mapped to the digit 5'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': r"""
           The opponent's score is 123. The current player's score is 5.
@@ -23,7 +23,7 @@ test = {
           """
         },
         {
-          'answer': 'a68426b3fe6a12ca35e8950a73ec9542',
+          'answer': 'The function mapped to the digit 2',
           'choices': [
             'The function mapped to the digit 1',
             'The function mapped to the digit 2',
@@ -31,12 +31,12 @@ test = {
             'The function mapped to the digit 5'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What is the second function applied to the result of the first?'
         },
         {
-          'answer': '2d938df444e9d7df5d6269208dae601c',
+          'answer': 'The function mapped to the digit 1',
           'choices': [
             'The function mapped to the digit 1',
             'The function mapped to the digit 2',
@@ -44,12 +44,12 @@ test = {
             'The function mapped to the digit 5'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What is the third function applied to the result of the second?'
         },
         {
-          'answer': 'e6b0e69be11aab1e96c657a121d3d9ae',
+          'answer': 'f1( f2( f3(5) )) % 30',
           'choices': [
             'f1( f2( f3(5) ))',
             'f1( f2( f3(5) )) % 30',
@@ -57,7 +57,7 @@ test = {
             'f3( f2( f1(5) )) % 30'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': r"""
           What is the overall result of Hefty Hogs for this turn?
@@ -73,32 +73,29 @@ test = {
         {
           'code': r"""
           >>> hefty_hogs(5, 123)
-          872dbe4a4fe5d8451aa842c21194c866
-          # locked
+          9
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> hefty_hogs(5, 456)
-          929ec99ad525462d9422b43834c9e1a7
-          # locked
+          29
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> a = hefty_hogs(5, 123)
           >>> a # check that the value is being returned, not printed
-          872dbe4a4fe5d8451aa842c21194c866
-          # locked
+          9
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
