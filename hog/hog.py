@@ -1,7 +1,7 @@
 """CS 61A Presents The Game of Hog."""
 
-from dice import six_sided, four_sided, make_test_dice
-from ucb import main, trace, interact
+from dice import four_sided, make_test_dice, six_sided  # noqa: F401
+from ucb import interact, main, trace  # noqa: F401
 
 GOAL_SCORE = 100  # The goal of Hog is to score 100 points.
 
@@ -18,10 +18,19 @@ def roll_dice(num_rolls, dice=six_sided):
     dice:       A function that simulates a single dice roll outcome.
     """
     # These assert statements ensure that num_rolls is a positive integer.
-    assert type(num_rolls) == int, 'num_rolls must be an integer.'
-    assert num_rolls > 0, 'Must roll at least once.'
+    assert type(num_rolls) == int, "num_rolls must be an integer."
+    assert num_rolls > 0, "Must roll at least once."
     # BEGIN PROBLEM 1
-    "*** YOUR CODE HERE ***"
+    total = 0
+    roll_one = False
+
+    for _ in range(num_rolls):
+        d = dice()
+        total += d
+        if d == 1:
+            roll_one = True
+
+    return 1 if roll_one else total
     # END PROBLEM 1
 
 
@@ -34,7 +43,7 @@ def digit_fn(digit):
     assert isinstance(digit, int) and 0 <= digit < 10
     # List of pre-defined functions
     f0 = lambda value: value + 1
-    f1 = lambda value: value ** 2
+    f1 = lambda value: value**2
     f2 = lambda value: value * 3
     f3 = lambda value: value // 4
     f4 = lambda value: value - 5
@@ -73,7 +82,15 @@ def hefty_hogs(player_score, opponent_score):
     opponent_score: The total score of the other player.
     """
     # BEGIN PROBLEM 2
-    "*** YOUR CODE HERE ***"
+    if opponent_score == 0:
+        return 1
+
+    def calculate(p, o):
+        if o == 0:
+            return p % 30
+        return calculate(digit_fn(o % 10)(p), o // 10)
+
+    return calculate(player_score, opponent_score)
     # END PROBLEM 2
 
 
@@ -89,12 +106,14 @@ def take_turn(num_rolls, player_score, opponent_score, dice=six_sided, goal=GOAL
     goal:            The goal score of the game.
     """
     # Leave these assert statements here; they help check for errors.
-    assert type(num_rolls) == int, 'num_rolls must be an integer.'
-    assert num_rolls >= 0, 'Cannot roll a negative number of dice in take_turn.'
-    assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
-    assert max(player_score, opponent_score) < goal, 'The game should be over.'
+    assert type(num_rolls) == int, "num_rolls must be an integer."
+    assert num_rolls >= 0, "Cannot roll a negative number of dice in take_turn."
+    assert num_rolls <= 10, "Cannot roll more than 10 dice."
+    assert max(player_score, opponent_score) < goal, "The game should be over."
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        return hefty_hogs(player_score, opponent_score)
+    return roll_dice(num_rolls, dice)
     # END PROBLEM 3
 
 
@@ -105,7 +124,9 @@ def hog_pile(player_score, opponent_score):
     opponent_score: The total score of the other player.
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    if player_score % 10 == opponent_score % 10:
+        return player_score % 10
+    return 0
     # END PROBLEM 4
 
 
@@ -125,8 +146,15 @@ def silence(score0, score1, leader=None):
     return leader, None
 
 
-def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
-         goal=GOAL_SCORE, say=silence):
+def play(
+    strategy0,
+    strategy1,
+    score0=0,
+    score1=0,
+    dice=six_sided,
+    goal=GOAL_SCORE,
+    say=silence,
+):
     """Simulate a game and return the final scores of both players, with Player
     0's score first, and Player 1's score second.
 
@@ -145,7 +173,15 @@ def play(strategy0, strategy1, score0=0, score1=0, dice=six_sided,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     leader = None  # To be used in problem 7
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    while True:
+        score0 += take_turn(strategy0(score0, score1), score0, score1, dice, goal)
+        score0 += hog_pile(score0, score1)
+        if score0 >= goal:
+            break
+        score1 += take_turn(strategy1(score1, score0), score1, score0, dice, goal)
+        score1 += hog_pile(score1, score0)
+        if score1 >= goal:
+            break
     # END PROBLEM 5
     # (note that the indentation for the problem 7 prompt (***YOUR CODE HERE***) might be misleading)
     # BEGIN PROBLEM 7
@@ -203,6 +239,7 @@ def both(f, g):
     Player 0 now has 10 and now Player 1 has 17
     Player 1 takes the lead by 7
     """
+
     def say(score0, score1, player=None):
         f_player, f_message = f(score0, score1, player)
         g_player, g_message = g(score0, score1, player)
@@ -210,6 +247,7 @@ def both(f, g):
             return g_player, f_message + "\n" + g_message
         else:
             return g_player, f_message or g_message
+
     return say
 
 
@@ -231,8 +269,10 @@ def always_roll(n):
     >>> strategy(99, 99)
     5
     """
+
     def strategy(score, opponent_score):
         return n
+
     return strategy
 
 
@@ -289,13 +329,13 @@ def average_win_rate(strategy, baseline=always_roll(6)):
 def run_experiments():
     """Run a series of strategy experiments and report results."""
     six_sided_max = max_scoring_num_rolls(six_sided)
-    print('Max scoring num rolls for six-sided dice:', six_sided_max)
-    print('always_roll(6) win rate:', average_win_rate(always_roll(6)))
+    print("Max scoring num rolls for six-sided dice:", six_sided_max)
+    print("always_roll(6) win rate:", average_win_rate(always_roll(6)))
 
-    #print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
-    #print('hefty_hogs_strategy win rate:', average_win_rate(hefty_hogs_strategy))
-    print('hog_pile_strategy win rate:', average_win_rate(hog_pile_strategy))
-    #print('final_strategy win rate:', average_win_rate(final_strategy))
+    # print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
+    # print('hefty_hogs_strategy win rate:', average_win_rate(hefty_hogs_strategy))
+    print("hog_pile_strategy win rate:", average_win_rate(hog_pile_strategy))
+    # print('final_strategy win rate:', average_win_rate(final_strategy))
     "*** You may add additional experiments as you wish ***"
 
 
@@ -327,6 +367,7 @@ def final_strategy(score, opponent_score):
     return 6  # Remove this line once implemented.
     # END PROBLEM 12
 
+
 ##########################
 # Command Line Interface #
 ##########################
@@ -339,9 +380,11 @@ def final_strategy(score, opponent_score):
 def run(*args):
     """Read in the command-line argument and calls corresponding functions."""
     import argparse
+
     parser = argparse.ArgumentParser(description="Play Hog")
-    parser.add_argument('--run_experiments', '-r', action='store_true',
-                        help='Runs strategy experiments')
+    parser.add_argument(
+        "--run_experiments", "-r", action="store_true", help="Runs strategy experiments"
+    )
 
     args = parser.parse_args()
 
