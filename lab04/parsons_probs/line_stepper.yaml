@@ -1,0 +1,30 @@
+problem_name: line_stepper
+
+problem_description: |
+  Complete the function <code>line_stepper</code>, which returns the number of ways there are to go from
+  <code>start</code> to 0 on the number line by taking exactly <code>k</code> steps along the number line.
+
+  <pre><code>
+  >>> line_stepper(1, 1) # only way is to take a step left
+  1
+  >>> line_stepper(0, 2) # can step left then right or right then left
+  2
+  >>> line_stepper(-3, 3) # have to take 3 steps right
+  1
+  >>> line_stepper(3, 5)
+  5
+  </code></pre>
+
+code_lines: |
+  def line_stepper(start, k):  #0given
+      if start == 0 and k == !BLANK:  #1given
+          return !BLANK #blank
+      elif k == 0:  #1given
+          return !BLANK #blank
+      else: #1given
+          left = line_stepper(!BLANK, !BLANK) #blank
+          right = line_stepper(!BLANK, !BLANK) #blank
+          return left + right #2given
+
+
+test_fn: line_stepper
