@@ -1,0 +1,28 @@
+problem_name: neighbor_digits
+
+problem_description: |
+  Implement the function <code>neighbor_digits</code>. <code>neighbor_digits</code> takes in an
+  integer <code>num</code> and an optional argument <code>prev_digit</code>. <code>neighbor_digits</code>
+  outputs the number of digits in <code>num</code> that have the same digit to its right or left.
+
+  <pre><code>
+  >>> neighbor_digits(111)
+  3
+  >>> neighbor_digits(123)
+  0
+  >>> neighbor_digits(112)
+  2
+  >>> neighbor_digits(1122)
+  4
+  </code></pre>
+
+code_lines: |
+  def neighbor_digits(num, prev_digit=-1): #0given
+    if !BLANK < 10: #blank
+        return !BLANK == prev_digit #blank
+    last = !BLANK #blank
+    rest = !BLANK #blank
+    return int(prev_digit == !BLANK or !BLANK == !BLANK) + neighbor_digits(!BLANK, !BLANK) #blank
+
+test_fn: neighbor_digits
+

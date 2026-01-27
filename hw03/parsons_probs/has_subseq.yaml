@@ -1,0 +1,31 @@
+problem_name: has_subseq
+
+problem_description: |
+  Implement the function <code>has_subseq</code>, which takes in a number <code>n</code>
+  and a "sequence" of digits <code>seq</code>. The function returns whether <code>n</code>
+  contains <code>seq</code> as a subsequence, which does not have to be consecutive.
+
+  <pre><code>
+  >>> has_subseq(123, 12)
+  True
+  >>> has_subseq(141, 11)
+  True
+  >>> has_subseq(144, 12)
+  False
+  >>> has_subseq(144, 1441)
+  False
+  >>> has_subseq(1343412, 134)
+  True
+  </code></pre>
+
+code_lines: |
+  def has_subseq(n, seq): #0given
+    if !BLANK: #blank
+        return True
+    if !BLANK: #blank
+        return False
+    if !BLANK: #blank
+        return has_subseq(!BLANK)
+    return has_subseq(!BLANK)
+
+test_fn: has_subseq
