@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': '88be4ee88e677a5f0781541deb37d1e5',
+          'answer': 'The current leader and a message.',
           'choices': [
             'Nothing (None).',
             'A message.',
@@ -14,19 +14,19 @@ test = {
             'The current leader and a message.'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What does announce_lead_changes return?'
         },
         {
-          'answer': 'b074a55f758d6258f1a67408f2b8ea88',
+          'answer': 'When the current leader is different from the previous leader.',
           'choices': [
             'When the current leader is the same as the previous leader.',
             'When the current leader is different from the previous leader.',
             'After each turn.'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': r"""
           When is the message returned by announce_lead_changes
@@ -34,7 +34,7 @@ test = {
           """
         },
         {
-          'answer': '7245aa58a0e05f5381933ab25fdea59e',
+          'answer': 'The leading player from the previous turn.',
           'choices': [
             'The opponent player of this turn.',
             'The current player of this turn.',
@@ -42,7 +42,7 @@ test = {
             'The leading player in the current turn.'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What does the parameter last_leader represent?'
         }
