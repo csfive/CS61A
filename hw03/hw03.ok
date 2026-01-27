@@ -1,0 +1,38 @@
+{
+    "name": "Homework 3",
+    "endpoint": "cal/cs61a/sp22/hw03",
+    "src": [
+        "hw03.py",
+        "parsons_probs/neighbor_digits.py",
+        "parsons_probs/has_subseq.py"
+    ],
+    "tests": {
+        "hw*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/neighbor_digits.py:neighbor_digits": "doctest",
+        "parsons_probs/has_subseq.py:has_subseq": "doctest"
+    },
+    "default_tests": [
+        "num_eights",
+        "pingpong",
+        "count_coins",
+        "neighbor_digits",
+        "has_subseq"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "analytics",
+        "unlock",
+        "grading",
+        "backup"
+    ],
+    "parsons": {
+        "missing_digits": {
+            "required": [
+                "neighbor_digits",
+                "has_subseq"
+            ]
+        }
+    }
+}
