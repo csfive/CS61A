@@ -11,4 +11,10 @@ def neighbor_digits(num, prev_digit=-1):
     >>> neighbor_digits(1122)
     4
     """
-    "*** YOUR CODE HERE ***"
+    if num < 10:
+        return num == prev_digit
+    last = num % 10
+    rest = num // 10
+    return int(prev_digit == last or last == rest % 10) + neighbor_digits(rest, last)
+
+
