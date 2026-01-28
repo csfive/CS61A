@@ -1,0 +1,10 @@
+def neighbor_digits(num, prev_digit=-1): #0given
+if !BLANK < 10:  #1given #blanknum
+return !BLANK == prev_digit  #2given #blanknum
+last = !BLANK  #1given #blanknum % 10
+rest = !BLANK  #1given #blanknum // 10
+return int(prev_digit == !BLANK or !BLANK == !BLANK) + neighbor_digits(!BLANK, !BLANK)  #1given #blanklast #blanklast #blankrest % 10 #blankrest #blanklast
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK
