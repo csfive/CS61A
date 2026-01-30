@@ -22,7 +22,9 @@ def num_eights(pos):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    if pos < 10:
+        return int(pos == 8)
+    return int(pos % 10 == 8) + num_eights(pos // 10)
 
 
 def pingpong(n):
@@ -58,7 +60,15 @@ def pingpong(n):
     ...       ['Assign', 'AnnAssign', 'AugAssign', 'NamedExpr'])
     True
     """
-    "*** YOUR CODE HERE ***"
+
+    def helper(result, i, step):
+        if i == n:
+            return result
+        if i % 8 == 0 or num_eights(i) > 0:
+            return helper(result - step, i + 1, -step)
+        return helper(result + step, i + 1, step)
+
+    return helper(1, 1, 1)
 
 
 def get_larger_coin(coin):
@@ -114,4 +124,14 @@ def count_coins(change):
     >>> check(HW_SOURCE_FILE, 'count_coins', ['While', 'For'])
     True
     """
-    "*** YOUR CODE HERE ***"
+
+    def helper(m, n):
+        if m == 0:
+            return 1
+        if m < 0:
+            return 0
+        if n is None:
+            return 0
+        return helper(m - n, n) + helper(m, get_smaller_coin(n))
+
+    return helper(change, 25)
