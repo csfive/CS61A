@@ -12,4 +12,13 @@ def line_stepper(start, k):
     >>> line_stepper(3, 5)
     5
     """
-    "*** YOUR CODE HERE ***"
+    if start == 0 and k == 0:
+        return 1
+    elif k == 0:
+        return 0
+    else:
+        left = line_stepper(start-1, k-1)
+        right = line_stepper(start+1, k-1)
+        return left + right
+
+
