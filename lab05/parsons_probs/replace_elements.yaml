@@ -1,0 +1,27 @@
+problem_name: replace_elements
+
+problem_description: |
+  Complete the function <code>replace_elements</code>, a function which takes in <code>source_list</code>
+  and <code>dest_list</code> and mutates the elements of <code>dest_list</code> to be the elements at the
+  corresponding index in <code>source_list</code>.
+
+  <code>dest_list</code> always has a length greater than or equal to the length of
+  <code>source_list</code>.
+  <pre><code>
+  >>> s1 = [1, 2, 3]
+  >>> s2 = [5, 4]
+  >>> replace_elements(s2, s1)
+  >>> s1
+  [5, 4, 3]
+  >>> s3 = [0, 0, 0, 0, 0]
+  >>> replace_elements(s1, s3)
+  >>> s3
+  [5, 4, 3, 0, 0]
+  </code></pre>
+
+code_lines: |
+  def replace_elements(source_list, dest_list): #0given
+    for i in !BLANK: #blank
+      dest_list[i] = !BLANK #blank
+
+test_fn: replace_elements
