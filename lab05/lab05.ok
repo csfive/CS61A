@@ -1,0 +1,35 @@
+{
+    "name": "Lab 5",
+    "endpoint": "cal/cs61a/sp22/lab05",
+    "src": [
+        "lab05.py",
+        "parsons_probs/replace_elements.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/replace_elements.py:replace_elements": "doctest"
+    },
+    "default_tests": [
+        "flatten",
+        "couple",
+        "list-mutation",
+        "insert_items",
+        "replace_elements"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ],
+    "parsons": {
+        "insert_items": {
+            "required": [
+                "replace_elements"
+            ]
+        }
+    }
+}
