@@ -1,5 +1,5 @@
 class SmartFridge:
-    """"
+    """ "
     >>> fridgey = SmartFridge()
     >>> fridgey.add_item('Mayo', 1)
     'I now have 1 Mayo'
@@ -15,7 +15,14 @@ class SmartFridge:
         self.items = {}
 
     def add_item(self, item, quantity):
-        "*** YOUR CODE HERE ***"
+        if item in self.items:
+            self.items[item] += quantity
+        else:
+            self.items[item] = quantity
+        return f"I now have {self.items[item]} {item}"
 
     def use_item(self, item, quantity):
-        "*** YOUR CODE HERE ***"
+        self.items[item] -= min(quantity, self.items[item])
+        if self.items[item] == 0:
+            return f"Uh oh, buy more {item}!"
+        return f"I have {self.items[item]} {item} left"

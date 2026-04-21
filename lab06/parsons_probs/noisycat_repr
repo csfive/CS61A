@@ -1,0 +1,12 @@
+class !BLANK: #0given #blankNoisyCat
+def __init__(self, name, owner, lives=9): #1given
+!BLANK.__init__(!BLANK)  #2given #blanksuper() #blankname, owner, lives
+!BLANK -= 1  #2given #blankself.lives
+def talk(self): #1given
+words = !BLANK.talk() #2given #blanksuper()
+words = words !BLANK  #2given #blank+ ' ' + words
+return words #2given
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK

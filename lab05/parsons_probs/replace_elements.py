@@ -3,7 +3,7 @@ def replace_elements(source_list, dest_list):
     Complete the function replace_elements, a function which takes in source_list
     and dest_list and mutates the elements of dest_list to be the elements at the
     corresponding index in source_list.
-    
+
     dest_list always has a length greater than or equal to the length of
     source_list.
 
@@ -17,4 +17,5 @@ def replace_elements(source_list, dest_list):
     >>> s3
     [5, 4, 3, 0, 0]
     """
-    "*** YOUR CODE HERE ***"
+    for i in range(len(source_list)):
+        dest_list[i] = source_list[i]

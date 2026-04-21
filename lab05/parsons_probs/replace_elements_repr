@@ -1,0 +1,7 @@
+def replace_elements(source_list, dest_list): #0given
+for i in !BLANK:  #1given #blankrange(len(source_list))
+dest_list[i] = !BLANK  #2given #blanksource_list[i]
+print('DEBUG:', !BLANK)
+print('DEBUG:', !BLANK)
+# !BLANK
+# !BLANK
