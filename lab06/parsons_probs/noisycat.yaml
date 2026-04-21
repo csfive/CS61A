@@ -1,0 +1,36 @@
+problem_name: NoisyCat
+
+problem_description: |
+  <p>Implement <code>NoisyCat</code>; a <code>NoisyCat</code> is similar to a normal <code>Cat</code>
+  but <code>talk</code>s twice as much. However, in exchange for such great powers, it gives up one of its
+  initial `lives`. 
+
+  <pre><code>
+  >>> my_cat = NoisyCat("Furball", "James")
+  >>> my_cat.name
+  'Furball'
+  >>> my_cat.is_alive
+  True
+  >>> my_cat.lives
+  8
+  >>> my_cat.talk()
+  'Furball says meow! Furball says meow!'
+  >>> friend_cat = NoisyCat("Tabby", "James", 2)
+  >>> friend_cat.talk()
+  'Tabby says meow! Tabby says meow!'
+  >>> friend_cat.lives
+  1
+  </code></pre>
+
+code_lines: |
+  class !BLANK: #0given
+  def __init__(self, name, owner, lives=9): #1given
+      !BLANK.__init__(!BLANK) #blank
+      !BLANK -= 1 #blank
+
+  def talk(self): #1given
+      words = !BLANK.talk() 
+      words = words !BLANK #blank
+      return words #2given
+
+test_fn: NoisyCat

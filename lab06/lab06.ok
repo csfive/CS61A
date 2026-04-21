@@ -1,0 +1,35 @@
+{
+    "name": "Lab 6",
+    "endpoint": "cal/cs61a/sp22/lab06",
+    "src": [
+        "lab06.py",
+        "parsons_probs/noisycat.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/noisycat.py:NoisyCat": "doctest"
+    },
+    "default_tests": [
+        "wwpd-car",
+        "NoisyCat",
+        "Cat.adopt_a_cat",
+        "Account",
+        "FreeChecking"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "analytics",
+        "unlock",
+        "grading",
+        "backup"
+    ],
+    "parsons": {
+        "oop": {
+            "required": [
+                "NoisyCat"
+            ]
+        }
+    }
+}
