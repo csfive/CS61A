@@ -1,5 +1,5 @@
 def remove_odd_indices(lst, odd):
-    """ 
+    """
     Remove elements of lst that have odd indices.
     >>> s = [1, 2, 3, 4]
     >>> t = remove_odd_indices(s, True)
@@ -12,4 +12,6 @@ def remove_odd_indices(lst, odd):
     >>> m
     [6, 8]
     """
-    "*** YOUR CODE HERE ***"
+    if odd:
+        return lst[::2]
+    return lst[1::2]
