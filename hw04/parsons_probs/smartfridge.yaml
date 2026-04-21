@@ -1,0 +1,56 @@
+problem_name: SmartFridge
+
+problem_description: |
+  <p>The <code>SmartFridge</code> class is used by smart
+  refrigerators to track which items are in the fridge
+  and let owners know when an item has run out.
+  </p>
+  <p>The class internally uses a dictionary to store items,
+  where each key is the item name and the value is the current quantity.
+  The <code>add_item</code> method should add the given quantity
+  of the given item and report the current quantity.
+  You can assume that the <code>use_item</code> method will only be called on
+  items that are already in the fridge, and it should use up
+  the given quantity of the given item. If the quantity would fall to or 
+  below zero, it should only use *up to* the remaining quantity, and 
+  remind the owner to buy more of that item.  
+  </p>
+  <p>Finish implementing the <code>SmartFridge</code> class definition
+  so that its <code>add_item</code> and <code>use_item</code>
+  methods work as expected.</p>
+
+  <pre><code>
+  >>> fridgey = SmartFridge()
+  >>> fridgey.add_item('Mayo', 1)
+  'I now have 1 Mayo'
+  >>> fridgey.add_item('Ketchup', 2)
+  'I now have 2 Ketchup'
+  >>> fridgey.add_item('Mayo', 2)
+  'I now have 3 Mayo'
+  >>> fridgey.use_item('Mayo', 2.5)
+  'I have 0.5 Mayo left'
+  >>> fridgey.use_item('Mayo', 0.5)
+  'Uh oh, buy more Mayo!'  
+  </code></pre>
+
+  
+code_lines: |
+  class SmartFridge: #0given  
+
+  def __init__(self): #1given
+  !BLANK.items = {} #blank #2given
+
+  def add_item(self, item, quantity): #1given
+  if item in !BLANK:
+  self.!BLANK += quantity
+  else:
+  self.!BLANK = quantity
+  return f'I now have {self.!BLANK} {item}'
+
+  def use_item(!BLANK): #blank #1given
+  self.!BLANK -= min(!BLANK, !BLANK) #blank
+  if !BLANK == 0: #blank
+  return f'Uh oh, buy more {item}!'
+  return f'I have {self.!BLANK} {item} left'
+
+test_fn: SmartFridge

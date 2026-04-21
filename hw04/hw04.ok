@@ -1,0 +1,41 @@
+{
+    "name": "Homework 4",
+    "endpoint": "cal/cs61a/sp22/hw04",
+    "src": [
+        "hw04.py",
+        "parsons_probs/remove_odd_indices.py",
+        "parsons_probs/smartfridge.py"
+    ],
+    "tests": {
+        "hw*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/remove_odd_indices.py:remove_odd_indices": "doctest",
+        "parsons_probs/smartfridge.py:SmartFridge": "doctest"
+    },
+    "default_tests": [
+        "remove_odd_indices",
+        "SmartFridge",
+        "merge",
+        "Mint",
+        "VendingMachine"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "analytics",
+        "grading",
+        "backup"
+    ],
+    "parsons": {
+        "lists": {
+            "required": [
+                "remove_odd_indices"
+            ]
+        },
+        "oop": {
+            "required": [
+                "SmartFridge"
+            ]
+        }
+    }
+}
