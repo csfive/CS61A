@@ -10,7 +10,12 @@ def merge(lst1, lst2):
     >>> merge([5, 7], [2, 4, 6])
     [2, 4, 5, 6, 7]
     """
-    "*** YOUR CODE HERE ***"
+    if not lst1 or not lst2:
+        return lst1 + lst2
+    elif lst1[0] < lst2[0]:
+        return [lst1[0]] + merge(lst1[1:], lst2)
+    else:
+        return [lst2[0]] + merge(lst1, lst2[1:])
 
 
 class Mint:
@@ -42,16 +47,17 @@ class Mint:
     >>> dime.worth()     # 20 cents + (155 - 50 years)
     125
     """
+
     present_year = 2021
 
     def __init__(self):
         self.update()
 
     def create(self, coin):
-        "*** YOUR CODE HERE ***"
+        return coin(self.year)
 
     def update(self):
-        "*** YOUR CODE HERE ***"
+        self.year = Mint.present_year
 
 
 class Coin:
@@ -61,7 +67,7 @@ class Coin:
         self.year = year
 
     def worth(self):
-        "*** YOUR CODE HERE ***"
+        return self.cents + max(0, Mint.present_year - self.year - 50)
 
 
 class Nickel(Coin):
@@ -109,4 +115,33 @@ class VendingMachine:
     >>> w.vend()
     'Here is your soda.'
     """
-    "*** YOUR CODE HERE ***"
+
+    def __init__(self, product, price):
+        self.product = product
+        self.price = price
+        self.stock = 0
+        self.balance = 0
+
+    def restock(self, amount):
+        self.stock += amount
+        return f"Current {self.product} stock: {self.stock}"
+
+    def add_funds(self, amount):
+        if self.stock == 0:
+            return f"Nothing left to vend. Please restock. Here is your ${amount}."
+        self.balance += amount
+        return f"Current balance: ${self.balance}"
+
+    def vend(self):
+        if self.stock == 0:
+            return "Nothing left to vend. Please restock."
+        elif self.balance < self.price:
+            return f"You must add ${self.price - self.balance} more funds."
+        else:
+            change = self.balance - self.price
+            self.stock -= 1
+            self.balance = 0
+            if change > 0:
+                return f"Here is your {self.product} and ${change} change."
+            else:
+                return f"Here is your {self.product}."
