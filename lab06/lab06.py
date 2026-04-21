@@ -6,7 +6,7 @@ class Cat:
         self.lives = lives
 
     def talk(self):
-        return self.name + ' says meow!'
+        return self.name + " says meow!"
 
     @classmethod
     def adopt_a_cat(cls, owner):
@@ -35,8 +35,8 @@ class Cat:
         8
         """
         cat_names = ["Felix", "Bugs", "Grumpy"]
-        "*** YOUR CODE HERE ***"
-        return cls(____, ____, ____)
+        name = cat_names[len(owner) % len(cat_names)]
+        return cls(name, owner, len(name) + len(owner))
 
 
 class Account:
@@ -57,6 +57,7 @@ class Account:
     >>> a.time_to_retire(100)
     117
     """
+
     max_withdrawal = 10
     interest = 0.02
 
@@ -79,7 +80,12 @@ class Account:
     def time_to_retire(self, amount):
         """Return the number of years until balance would grow to amount."""
         assert self.balance > 0 and amount > 0 and self.interest > 0
-        "*** YOUR CODE HERE ***"
+        years = 0
+        balance = self.balance
+        while balance < amount:
+            balance += balance * self.interest
+            years += 1
+        return years
 
 
 class FreeChecking(Account):
@@ -105,7 +111,17 @@ class FreeChecking(Account):
     >>> ch.withdraw(5)  # Not enough to cover fee + withdraw
     'Insufficient funds'
     """
+
     withdraw_fee = 1
     free_withdrawals = 2
 
-    "*** YOUR CODE HERE ***"
+    def __init__(self, account_holder):
+        super().__init__(account_holder)
+        self.withdrawals = 0
+
+    def withdraw(self, amount):
+        self.withdrawals += 1
+        fee = 0
+        if self.withdrawals > self.free_withdrawals:
+            fee = self.withdraw_fee
+        return super().withdraw(amount + fee)
