@@ -258,7 +258,7 @@ class FireAnt(Ant):
     food_cost = 5
     # OVERRIDE CLASS ATTRIBUTES HERE
     # BEGIN Problem 5
-    implemented = False  # Change to True to view in the GUI
+    implemented = True
     # END Problem 5
 
     def __init__(self, health=3):
@@ -273,16 +273,51 @@ class FireAnt(Ant):
         the additional damage if the fire ant dies.
         """
         # BEGIN Problem 5
-        "*** YOUR CODE HERE ***"
+        for bee in self.place.bees[:]:
+            bee.reduce_health(amount)
+
+        if self.health - amount <= 0:
+            for bee in self.place.bees[:]:
+                bee.reduce_health(self.damage)
+
+        super().reduce_health(amount)
         # END Problem 5
 
 
 # BEGIN Problem 6
-# The WallAnt class
+class WallAnt(Ant):
+    implemented = True
+    name = "Wall"
+    food_cost = 4
+
+    def __init__(self, health=4):
+        super().__init__(health)
+
+
 # END Problem 6
 
+
 # BEGIN Problem 7
-# The HungryAnt Class
+class HungryAnt(Ant):
+    implemented = True
+    name = "Hungry"
+    food_cost = 4
+    time_to_chew = 3
+
+    def __init__(self, health=1):
+        super().__init__(health)
+        self.chew_timer = 0
+
+    def action(self, gamestate):
+        if self.chew_timer > 0:
+            self.chew_timer -= 1
+        else:
+            bee = random_bee(self.place.bees)
+            if bee:
+                bee.reduce_health(bee.health)
+                self.chew_timer = self.time_to_chew
+
+
 # END Problem 7
 
 
