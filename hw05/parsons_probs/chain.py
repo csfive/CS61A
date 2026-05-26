@@ -12,7 +12,12 @@ def chain(t):
     >>> chain(t2)
     False
     """
-    "*** YOUR CODE HERE ***"
+    if t.is_leaf():
+        return True
+    for b in t.branches:
+        if b.label == t.label and chain(b):
+            return True
+    return False
 
 
 class Tree:
@@ -37,15 +42,16 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()

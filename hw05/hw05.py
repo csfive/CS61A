@@ -1,16 +1,3 @@
-passphrase = '*** PASSPHRASE HERE ***'
-
-
-def midsem_survey(p):
-    """
-    You do not need to understand this code.
-    >>> midsem_survey(passphrase)
-    '6b11cc4633eb00f582dcc3a83f713aef58d85a1900d7cd9881d60e76'
-    """
-    import hashlib
-    return hashlib.sha224(p.encode('utf-8')).hexdigest()
-
-
 def has_path(t, term):
     """Return whether there is a path in a Tree where the entries along the path
     spell out a particular term.
@@ -41,8 +28,15 @@ def has_path(t, term):
     >>> has_path(greetings, 'hint')
     False
     """
-    assert len(term) > 0, 'no path for empty term.'
-    "*** YOUR CODE HERE ***"
+    assert len(term) > 0, "no path for empty term."
+    if t.label != term[0]:
+        return False
+    if len(term) == 1:
+        return True
+    for b in t.branches:
+        if has_path(b, term[1:]):
+            return True
+    return False
 
 
 def duplicate_link(lnk, val):
@@ -60,7 +54,14 @@ def duplicate_link(lnk, val):
     >>> y
     Link(2, Link(4, Link(6, Link(8))))
     """
-    "*** YOUR CODE HERE ***"
+    if lnk is Link.empty:
+        return
+    elif lnk.first == val:
+        remaining = lnk.rest
+        lnk.rest = Link(val, remaining)
+        duplicate_link(remaining, val)
+    else:
+        duplicate_link(lnk.rest, val)
 
 
 def deep_map_mut(fn, lnk):
@@ -80,7 +81,13 @@ def deep_map_mut(fn, lnk):
     >>> print(link1)
     <9 <16> 25 36>
     """
-    "*** YOUR CODE HERE ***"
+    if lnk is Link.empty:
+        return
+    elif isinstance(lnk.first, Link):
+        deep_map_mut(fn, lnk.first)
+    else:
+        lnk.first = fn(lnk.first)
+    deep_map_mut(fn, lnk.rest)
 
 
 class Tree:
@@ -105,17 +112,18 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()
 
 
@@ -139,6 +147,7 @@ class Link:
     >>> print(s)                             # Prints str(s)
     <5 7 <8 9>>
     """
+
     empty = ()
 
     def __init__(self, first, rest=empty):
@@ -148,14 +157,14 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"

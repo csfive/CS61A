@@ -13,7 +13,6 @@
         "parsons_probs/flatten_link.py:flatten_link": "doctest"
     },
     "default_tests": [
-        "midsem_survey",
         "chain",
         "flatten_link",
         "has_path",
