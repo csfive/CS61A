@@ -1,0 +1,33 @@
+problem_name: reverse_link
+
+problem_description: |
+  Write a function that takes in a linked list
+  and returns a reversed version of that linked list
+  (with elements in the opposite order).
+  It should <em>not</em> mutate the original list
+
+  <pre><code>
+  >>> s = Link(1, Link(2, Link(3, Link.empty)))
+  >>> reverse_link(s)
+  Link(3, Link(2, Link(1)))
+  >>> s
+  Link(1, Link(2, Link(3)))
+  >>> k = Link(3, Link(5, Link(7, Link(9))))
+  >>> reverse_link(k)
+  Link(9, Link(7, Link(5, Link(3))))
+  >>> k
+  Link(3, Link(5, Link(7, Link(9))))
+  </code></pre>
+  
+  Hint: attempt to replicate the following diagram.
+  <img src="/reverse_link_diagram.png"/>
+
+code_lines: |
+  def reverse_link(lnk): #0given
+  result = Link.empty
+  while !BLANK:
+  result = Link(!BLANK)
+  lnk = !BLANK
+  return result
+
+test_fn: reverse_link

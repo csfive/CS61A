@@ -1,0 +1,22 @@
+problem_name: label_multiplier
+
+problem_description: |
+  Write a function <code>label_multiplier</code> that mutates the 
+  tree <code>t</code>'s labels by multiplying their original value by <code>val</code>.
+
+  <pre><code>
+  >>> t1 = Tree(2, [Tree(4, [Tree(6)]), Tree(8)])
+  >>> label_multiplier(t1, 10)
+  >>> t1
+  Tree(20, [Tree(40, [Tree(60)]), Tree(80)])
+  >>> t2 = Tree(10, [Tree(9), Tree(8, [Tree(7), Tree(6)]), Tree(5, [Tree(4), Tree(3), Tree(2)])])
+  >>> label_multiplier(t2, 3)
+  >>> t2
+  Tree(30, [Tree(27), Tree(24, [Tree(21), Tree(18)]), Tree(15, [Tree(12), Tree(9), Tree(6)])])
+  </code></pre>
+
+code_lines: |
+  def label_multiplier(t, val): #0given
+    t.label = !BLANK #blank
+    for !BLANK: #blank
+        label_multiplier(!BLANK, !BLANK) #blank

@@ -1,0 +1,42 @@
+{
+    "name": "Lab 7",
+    "endpoint": "cal/cs61a/sp22/lab07",
+    "src": [
+        "lab07.py",
+        "parsons_probs/reverse_link.py",
+        "parsons_probs/label_multiplier.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test",
+        "parsons_probs/reverse_link.py:reverse_link": "doctest",
+        "parsons_probs/label_multiplier.py:label_multiplier": "doctest"
+    },
+    "default_tests": [
+        "link",
+        "reverse_link",
+        "label_multiplier",
+        "store_digits",
+        "cumulative_mul"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ],
+    "parsons": {
+        "store_digits": {
+            "required": [
+                "reverse_link"
+            ]
+        },
+        "label_squarer": {
+            "required": [
+                "label_multiplier"
+            ]
+        }
+    }
+}
