@@ -14,7 +14,11 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     >>> link1 = Link(3, Link(Link(4), Link(5, Link(6))))
     """
-    "*** YOUR CODE HERE ***"
+    result = Link.empty
+    while n > 0:
+        result = Link(n % 10, result)
+        n //= 10
+    return result
 
 
 def cumulative_mul(t):
@@ -30,7 +34,12 @@ def cumulative_mul(t):
     >>> otherTree
     Tree(5040, [Tree(60, [Tree(3), Tree(4), Tree(5)]), Tree(42, [Tree(7)])])
     """
-    "*** YOUR CODE HERE ***"
+    for b in t.branches:
+        cumulative_mul(b)
+    total = t.label
+    for b in t.branches:
+        total *= b.label
+    t.label = total
 
 
 def has_cycle(link):
@@ -47,7 +56,13 @@ def has_cycle(link):
     >>> has_cycle(u)
     False
     """
-    "*** YOUR CODE HERE ***"
+    links = []
+    while link is not Link.empty:
+        if link in links:
+            return True
+        links.append(link)
+        link = link.rest
+    return False
 
 
 def has_cycle_constant(link):
@@ -61,7 +76,17 @@ def has_cycle_constant(link):
     >>> has_cycle_constant(t)
     False
     """
-    "*** YOUR CODE HERE ***"
+    if link is Link.empty:
+        return False
+    slow, fast = link, link.rest
+    while fast is not Link.empty:
+        if fast.rest is Link.empty:
+            return False
+        elif fast is slow or fast.rest is slow:
+            return True
+        else:
+            slow, fast = slow.rest, fast.rest.rest
+    return False
 
 
 class Link:
@@ -84,6 +109,7 @@ class Link:
     >>> print(s)                             # Prints str(s)
     <5 7 <8 9>>
     """
+
     empty = ()
 
     def __init__(self, first, rest=empty):
@@ -93,17 +119,17 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"
 
 
 class Tree:
@@ -128,15 +154,16 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()

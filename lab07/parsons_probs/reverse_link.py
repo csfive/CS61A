@@ -2,7 +2,7 @@ def reverse_link(lnk):
     """
     Given a linked list lnk, return a new linked list which has all the
     elements of lnk but in reverse order.
-    
+
     >>> s = Link(1, Link(2, Link(3, Link.empty)))
     >>> reverse_link(s)
     Link(3, Link(2, Link(1)))
@@ -14,7 +14,11 @@ def reverse_link(lnk):
     >>> k
     Link(3, Link(5, Link(7, Link(9))))
     """
-    "*** YOUR CODE HERE ***"
+    result = Link.empty
+    while lnk is not Link.empty:
+        result = Link(lnk.first, result)
+        lnk = lnk.rest
+    return result
 
 
 class Link:
@@ -27,14 +31,14 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"
