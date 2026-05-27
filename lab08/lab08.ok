@@ -1,0 +1,25 @@
+{
+    "name": "Lab 8",
+    "endpoint": "cal/cs61a/sp22/lab08",
+    "src": [
+        "lab08.py"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "repeated",
+        "merge",
+        "deep_len",
+        "add_d_leaves"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}
