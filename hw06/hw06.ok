@@ -1,0 +1,25 @@
+{
+    "name": "Homework 6",
+    "endpoint": "cal/cs61a/sp22/hw06",
+    "src": [
+        "hw06.scm"
+    ],
+    "tests": {
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "cadr-caddr",
+        "ascending",
+        "interleave",
+        "filter",
+        "no_repeats"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "grading",
+        "analytics",
+        "unlock",
+        "backup"
+    ]
+}
