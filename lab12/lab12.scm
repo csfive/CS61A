@@ -8,10 +8,19 @@
 
 (define (get-lon city) (car (cdr (cdr city))))
 
-(define (distance city-a city-b) 'YOUR-CODE-HERE)
+(define (distance city-a city-b)
+  (define lat-a (get-lat city-a))
+  (define lon-a (get-lon city-a))
+  (define lat-b (get-lat city-b))
+  (define lon-b (get-lon city-b))
+  (sqrt (+ (expt (- lat-a lat-b) 2)
+           (expt (- lon-a lon-b) 2))))
 
 (define (closer-city lat lon city-a city-b)
-  'YOUR-CODE-HERE)
+  (if (< (distance city-a (make-city 'temp lat lon))
+         (distance city-b (make-city 'temp lat lon)))
+      (get-name city-a)
+      (get-name city-b)))
 
 ; Teacher and Student Abstractions
 (define (student-create name classes)
@@ -20,26 +29,32 @@
 (define (teacher-create name class students)
   (cons name (cons class students)))
 
-(define (student-get-name student)
-  'YOUR-CODE-HERE)
+(define (student-get-name student) (car student))
 
 (define (student-get-classes student)
-  'YOUR-CODE-HERE)
+  (cdr student))
 
-(define (teacher-get-name teacher)
-  'YOUR-CODE-HERE)
+(define (teacher-get-name teacher) (car teacher))
 
 (define (teacher-get-class teacher)
-  'YOUR-CODE-HERE)
+  (car (cdr teacher)))
 
 (define (teacher-get-students teacher)
-  'YOUR-CODE-HERE)
+  (cdr (cdr teacher)))
 
 (define (student-attend-class student class)
-  'YOUR-CODE-HERE)
+  (student-create (student-get-name student)
+                  (cons class (student-get-classes student))))
 
 (define (teacher-hold-class teacher)
-  'YOUR-CODE-HERE)
+  (define new-students
+          (map (lambda (student)
+                 (student-attend-class student
+                                       (teacher-get-class teacher)))
+               (teacher-get-students teacher)))
+  (teacher-create (teacher-get-name teacher)
+                  (teacher-get-class teacher)
+                  new-students))
 
 ; Rational Abstraction
 ; Helpers
