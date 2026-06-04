@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': '67b5ff15ca924eb2fdb21d8ab7d04c35',
+          'answer': 'add()',
           'choices': [
             'add(1, 2)',
             'sub(3, 4)',
@@ -13,12 +13,12 @@ test = {
             'add()'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'Which of the following expressions would NOT be parsable according to this BNF?'
         },
         {
-          'answer': '08576e9d55d42841148d20830d3abc78',
+          'answer': 'add(10, 20)',
           'choices': [
             'add(a, b)',
             'add("a", "b")',
@@ -26,12 +26,12 @@ test = {
             'All of these'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'Which of these expressions WOULD be parsable according to this BNF?'
         },
         {
-          'answer': '2926c41689d520aa46c523fc7c6a81de',
+          'answer': 'FUNCNAME: "add" | "mul" | "sub"',
           'choices': [
             'pycomb_call: func "(" arg ("," arg)* ")"',
             'arg: pycomb_call | NUMBER',
@@ -39,12 +39,12 @@ test = {
             'FUNCNAME: "add" | "mul" | "sub"'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'What line of the BNF should we modify to add support for a "div" operation?'
         },
         {
-          'answer': 'baf64f82fe30f0af0d0a42db52fc0f2a',
+          'answer': 'both FUNCNAME and NUMBER',
           'choices': [
             'pycomb_call',
             'arg',
@@ -55,7 +55,7 @@ test = {
             'All of these'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False,
           'question': 'Which of the following are considered a terminal?'
         }

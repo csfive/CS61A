@@ -1,4 +1,12 @@
-(define (split-at lst n) 'YOUR-CODE-HERE)
+(define (split-at lst n)
+  (cond 
+    ((= n 0)
+     (cons nil lst))
+    ((null? lst)
+     (cons lst nil))
+    (else
+     (let ((rec (split-at (cdr lst) (- n 1))))
+       (cons (cons (car lst) (car rec)) (cdr rec))))))
 
 ; Tree Abstraction
 ; Constructs tree given label and list of branches
@@ -14,7 +22,14 @@
 ; Returns #t if t is a leaf, #f otherwise
 (define (is-leaf t) (null? (branches t)))
 
-(define (filter-odd t) 'YOUR-CODE-HERE)
+(define (filter-odd t)
+  (cond 
+    ((null? t)
+     nil)
+    ((odd? (label t))
+     (tree (label t) (map filter-odd (branches t))))
+    (else
+     (tree nil (map filter-odd (branches t))))))
 
 (define (cddr s) (cdr (cdr s)))
 
@@ -22,4 +37,11 @@
 
 (define (caddr s) (car (cddr s)))
 
-(define (swap expr) 'YOUR-CODE-HERE)
+(define (swap expr)
+  (let ((op (car expr))
+        (first (car (cdr expr)))
+        (second (caddr expr))
+        (rest (cdr (cddr expr))))
+    (if (> (eval second) (eval first))
+        (cons op (cons second (cons first rest)))
+        expr)))

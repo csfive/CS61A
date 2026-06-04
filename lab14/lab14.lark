@@ -1,0 +1,12 @@
+?start: pycomb_expression
+
+pycomb_expression: func "(" arg ("," arg)* ")"
+
+arg: pycomb_expression | NUMBER
+
+func: FUNCNAME
+
+FUNCNAME: "add" | "mul" | "sub"
+
+%ignore " "
+%import common.NUMBER

@@ -19,10 +19,10 @@ def address_oneline(text):
     >>> address_oneline("790 lowercase St")
     False
     """
-    block_number = r'___'
-    cardinal_dir = r'___'  # whitespace is important!
-    street = r'___'
-    type_abbr = r'___'
+    block_number = r"\d{3,5}"
+    cardinal_dir = r"(?:[NEWS] )?"  # whitespace is important!
+    street = r"(?:[A-Z][A-Za-z]+ )+"
+    type_abbr = r"[A-Z][a-z]{1,4}\b"
     street_name = f"{cardinal_dir}{street}{type_abbr}"
     return bool(re.search(f"{block_number} {street_name}", text))
 
@@ -43,7 +43,15 @@ def prune_min(t):
     >>> t3
     Tree(6, [Tree(3, [Tree(1)])])
     """
-    "*** YOUR CODE HERE ***"
+    if t.branches == []:
+        return
+    prune_min(t.branches[0])
+    prune_min(t.branches[1])
+    if t.branches[0].label < t.branches[1].label:
+        t.branches.pop(1)
+    else:
+        t.branches.pop(0)
+    return
 
 
 def add_trees(t1, t2):
@@ -81,7 +89,24 @@ def add_trees(t1, t2):
         5
       5
     """
-    "*** YOUR CODE HERE ***"
+    if not t1:
+        return t2
+    if not t2:
+        return t1
+    new_label = t1.label + t2.label
+    t1_branches, t2_branches = list(t1.branches), list(t2.branches)
+    length_t1, length_t2 = len(t1_branches), len(t2_branches)
+    if length_t1 < length_t2:
+        t1_branches += [None for _ in range(length_t1, length_t2)]
+    elif length_t1 > length_t2:
+        t2_branches += [None for _ in range(length_t2, length_t1)]
+    return Tree(
+        new_label,
+        [
+            add_trees(branch1, branch2)
+            for branch1, branch2 in zip(t1_branches, t2_branches)
+        ],
+    )
 
 
 def make_test_random():
@@ -103,6 +128,7 @@ def make_test_random():
         rand = rands[0]
         rands.append(rands.pop(0))
         return rand
+
     return random
 
 
@@ -141,10 +167,16 @@ class Player:
         self.popularity = 100
 
     def debate(self, other):
-        "*** YOUR CODE HERE ***"
+        prob = max(0.1, self.popularity / (self.popularity + other.popularity))
+        if random() < prob:
+            self.popularity += 50
+        else:
+            self.popularity = max(0, self.popularity - 50)
 
     def speech(self, other):
-        "*** YOUR CODE HERE ***"
+        self.votes += self.popularity // 10
+        self.popularity += self.popularity // 10
+        other.popularity -= other.popularity // 10
 
     def choose(self, other):
         return self.speech
@@ -168,14 +200,24 @@ class Game:
 
     def play(self):
         while not self.game_over():
-            "*** YOUR CODE HERE ***"
+            if self.turn % 2 == 0:
+                curr, other = self.p1, self.p2
+            else:
+                curr, other = self.p2, self.p1
+            curr.choose(other)(other)
+            self.turn += 1
         return self.winner()
 
     def game_over(self):
         return max(self.p1.votes, self.p2.votes) >= 50 or self.turn >= 10
 
     def winner(self):
-        "*** YOUR CODE HERE ***"
+        if self.p1.votes > self.p2.votes:
+            return self.p1
+        elif self.p2.votes > self.p1.votes:
+            return self.p2
+        else:
+            return None
 
 
 # Phase 3: New Players
@@ -191,7 +233,10 @@ class AggressivePlayer(Player):
     """
 
     def choose(self, other):
-        "*** YOUR CODE HERE ***"
+        if self.popularity <= other.popularity:
+            return self.debate
+        else:
+            return self.speech
 
 
 class CautiousPlayer(Player):
@@ -208,7 +253,10 @@ class CautiousPlayer(Player):
     """
 
     def choose(self, other):
-        "*** YOUR CODE HERE ***"
+        if self.popularity == 0:
+            return self.debate
+        else:
+            return self.speech
 
 
 def intersection(lst_of_lsts):
@@ -229,7 +277,9 @@ def intersection(lst_of_lsts):
     [3]
     """
     elements = []
-    "*** YOUR CODE HERE ***"
+    for elem in lst_of_lsts[0]:
+        if all(elem in lst for lst in lst_of_lsts) and elem not in elements:
+            elements.append(elem)
     return elements
 
 
@@ -248,7 +298,7 @@ def deck(suits, ranks):
     []
     """
     "*** YOUR CODE HERE ***"
-    return ______
+    return [[suit, rank] for suit in suits for rank in ranks]
 
 
 def pascal_row(s):
@@ -263,7 +313,15 @@ def pascal_row(s):
     <1 3 3 1>
     <1 4 6 4 1>
     """
-    "*** YOUR CODE HERE ***"
+    if s is Link.empty:
+        return Link(1)
+    ans = Link(1)
+    last, curr = ans, s
+    while curr.rest is not Link.empty:
+        last.rest = Link(curr.first + curr.rest.first)
+        last, curr = last.rest, curr.rest
+    last.rest = Link(1)
+    return ans
 
 
 class Tree:
@@ -288,17 +346,18 @@ class Tree:
 
     def __repr__(self):
         if self.branches:
-            branch_str = ', ' + repr(self.branches)
+            branch_str = ", " + repr(self.branches)
         else:
-            branch_str = ''
-        return 'Tree({0}{1})'.format(self.label, branch_str)
+            branch_str = ""
+        return "Tree({0}{1})".format(self.label, branch_str)
 
     def __str__(self):
         def print_tree(t, indent=0):
-            tree_str = '  ' * indent + str(t.label) + "\n"
+            tree_str = "  " * indent + str(t.label) + "\n"
             for b in t.branches:
                 tree_str += print_tree(b, indent + 1)
             return tree_str
+
         return print_tree(self).rstrip()
 
 
@@ -322,6 +381,7 @@ class Link:
     >>> print(s)                             # Prints str(s)
     <5 7 <8 9>>
     """
+
     empty = ()
 
     def __init__(self, first, rest=empty):
@@ -331,14 +391,14 @@ class Link:
 
     def __repr__(self):
         if self.rest is not Link.empty:
-            rest_repr = ', ' + repr(self.rest)
+            rest_repr = ", " + repr(self.rest)
         else:
-            rest_repr = ''
-        return 'Link(' + repr(self.first) + rest_repr + ')'
+            rest_repr = ""
+        return "Link(" + repr(self.first) + rest_repr + ")"
 
     def __str__(self):
-        string = '<'
+        string = "<"
         while self.rest is not Link.empty:
-            string += str(self.first) + ' '
+            string += str(self.first) + " "
             self = self.rest
-        return string + str(self.first) + '>'
+        return string + str(self.first) + ">"
