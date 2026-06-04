@@ -4,8 +4,8 @@ import re
 def scientific_name(name):
     """
     Returns True for strings that are in the correct notation for scientific names;
-    i.e. contains a capital letter followed by a period or lowercase letters, 
-    followed by a space, followed by more lowercase letters. Returns False for 
+    i.e. contains a capital letter followed by a period or lowercase letters,
+    followed by a space, followed by more lowercase letters. Returns False for
     invalid strings.
 
     >>> scientific_name("T. rex")
@@ -25,10 +25,7 @@ def scientific_name(name):
     >>> scientific_name("I want a pet T. rex right now")
     False
     """
-    return bool(re.search(__________, name))
-
-
-import re
+    return bool(re.search(r"^[A-Z]([.]|[a-z]+)\s[a-z]+$", name))
 
 
 def calculator_ops(calc_str):
@@ -49,10 +46,7 @@ def calculator_ops(calc_str):
     >>> calculator_ops("+ 3 23")
     False
     """
-    return bool(re.search(__________, calc_str))
-
-
-import re
+    return bool(re.search(r"\(([-+*/]\s+\d+\s+\d+)\)", calc_str))
 
 
 def roman_numerals(text):
@@ -73,4 +67,4 @@ def roman_numerals(text):
     >>> roman_numerals("she loves ALL editors equally.")
     False
     """
-    return bool(re.search(__________, text))
+    return bool(re.search(r"\b([IVXLCDM]+)\b", text))
