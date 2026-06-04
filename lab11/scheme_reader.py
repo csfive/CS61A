@@ -15,14 +15,10 @@ The __str__ method of a Scheme value will return a Scheme expression that
 would be read to the value, where possible.
 """
 
-import numbers
-import builtins
-
-from ucb import main, trace, interact
-from scheme_tokens import tokenize_lines, DELIMITERS
-
 from buffer import Buffer, InputReader, LineReader
 from pair import Pair, nil
+from scheme_tokens import DELIMITERS, tokenize_lines
+from ucb import main
 
 # Scheme list parser
 
@@ -42,22 +38,22 @@ def scheme_read(src):
     if src.current is None:
         raise EOFError
     val = src.pop_first()  # Get and remove the first token
-    if val == 'nil':
+    if val == "nil":
         # BEGIN PROBLEM 2
-        "*** YOUR CODE HERE ***"
+        return nil
         # END PROBLEM 2
-    elif val == '(':
+    elif val == "(":
         # BEGIN PROBLEM 2
-        "*** YOUR CODE HERE ***"
+        return read_tail(src)
         # END PROBLEM 2
     elif val == "'":
         # BEGIN PROBLEM 3
-        "*** YOUR CODE HERE ***"
+        return Pair("quote", Pair(scheme_read(src), nil))
         # END PROBLEM 3
     elif val not in DELIMITERS:
         return val
     else:
-        raise SyntaxError('unexpected token: {0}'.format(val))
+        raise SyntaxError("unexpected token: {0}".format(val))
 
 
 def read_tail(src):
@@ -72,27 +68,31 @@ def read_tail(src):
         while src.end_of_line():
             src.pop_first()
         if src.current is None:
-            raise SyntaxError('unexpected end of file')
-        elif src.current == ')':
+            raise SyntaxError("unexpected end of file")
+        elif src.current == ")":
             # BEGIN PROBLEM 2
-            "*** YOUR CODE HERE ***"
+            src.pop_first()
+            return nil
             # END PROBLEM 2
         else:
             # BEGIN PROBLEM 2
-            "*** YOUR CODE HERE ***"
+            first = scheme_read(src)
+            rest = read_tail(src)
+            return Pair(first, rest)
             # END PROBLEM 2
     except EOFError:
-        raise SyntaxError('unexpected end of file')
+        raise SyntaxError("unexpected end of file")
+
 
 # Convenience methods
 
 
-def buffer_input(prompt='scm> '):
+def buffer_input(prompt="scm> "):
     """Return a Buffer instance containing interactive input."""
     return Buffer(tokenize_lines(InputReader(prompt)))
 
 
-def buffer_lines(lines, prompt='scm> ', show_prompt=False):
+def buffer_lines(lines, prompt="scm> ", show_prompt=False):
     """Return a Buffer instance iterating through LINES."""
     if show_prompt:
         input_lines = lines
@@ -108,8 +108,11 @@ def read_line(line):
         buf.pop_first()
     result = scheme_read(buf)
     if not buf.end_of_line():
-        raise SyntaxError("read_line's argument can only be a single element, but received multiple")
+        raise SyntaxError(
+            "read_line's argument can only be a single element, but received multiple"
+        )
     return result
+
 
 # Interactive loop
 
@@ -118,18 +121,18 @@ def read_print_loop():
     """Run a read-print loop for Scheme expressions."""
     while True:
         try:
-            src = buffer_input('read> ')
+            src = buffer_input("read> ")
             while src.end_of_line():
                 src.pop_first()
             while not src.end_of_line():
                 expression = scheme_read(src)
-                if expression == 'exit':
+                if expression == "exit":
                     print()
                     return
-                print('str :', expression)
-                print('repr:', repr(expression))
+                print("str :", expression)
+                print("repr:", repr(expression))
         except (SyntaxError, ValueError) as err:
-            print(type(err).__name__ + ':', err)
+            print(type(err).__name__ + ":", err)
         except (KeyboardInterrupt, EOFError):  # <Control>-D, etc.
             print()
             return
@@ -137,5 +140,5 @@ def read_print_loop():
 
 @main
 def main(*args):
-    if len(args) and '--repl' in args:
+    if len(args) and "--repl" in args:
         read_print_loop()

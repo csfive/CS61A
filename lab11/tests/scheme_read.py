@@ -40,80 +40,63 @@ test = {
           >>> tokens = tokenize_lines(["(+ 1 ", "(23 4)) ("])
           >>> src = Buffer(tokens)
           >>> src.current
-          3b7cdc2be9c666c1caa86e1078441301
-          # locked
+          '('
           >>> src.pop_first()
-          3b7cdc2be9c666c1caa86e1078441301
-          # locked
+          '('
           >>> src.current
-          ba084e2fc5a753670125e16b4647a17d
-          # locked
+          '+'
           >>> src.pop_first()
-          ba084e2fc5a753670125e16b4647a17d
-          # locked
+          '+'
           >>> src.pop_first()
-          94ce22b5936436a75abf185df37ba826
-          # locked
+          1
           >>> src.current
-          f376991ee5edb3e2346c4e0366945054
-          # locked
+          This is a token representing the end of a line.
           >>> src.end_of_line()
-          308968ce50a38a2957823e1439417bf2
-          # locked
+          True
           >>> src.pop_first()
-          f376991ee5edb3e2346c4e0366945054
-          # locked
+          This is a token representing the end of a line.
           >>> scheme_read(src)  # Removes the next complete expression in src and returns it as a Pair
-          e43ca4915bfa8d11195999c3e0da34ee
-          # locked
+          Pair(23, Pair(4, nil))
           >>> src.current
-          16da0f51a49b58e51a22761893df1e01
-          # locked
+          ')'
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> scheme_read(Buffer(tokenize_lines(['(18 6)']))) # Type SyntaxError if you think this errors
-          b9d5823db55af0cd048a061f6dcfb3d1
-          # locked
+          Pair(18, Pair(6, nil))
           >>> read_line('(18 6)')  # Shorter version of above!
-          b9d5823db55af0cd048a061f6dcfb3d1
-          # locked
+          Pair(18, Pair(6, nil))
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> read_tail(Buffer(tokenize_lines([')'])))
-          b0f31f4d3b6358d261ea505f9eb2b934
-          # locked
+          nil
           >>> read_tail(Buffer(tokenize_lines(['1 2 3)'])))
-          c8c1ed2d80f1a2a4c91a49e95404d13b
-          # locked
+          Pair(1, Pair(2, Pair(3, nil)))
           >>> read_tail(Buffer(tokenize_lines(['2 (3 4))'])))
-          e0fa6fce82a72c162a31227fd396f553
-          # locked
+          Pair(2, Pair(Pair(3, Pair(4, nil)), nil))
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
           'code': r"""
           >>> read_tail(Buffer(tokenize_lines(['(1 2 3)']))) # Type SyntaxError if you think this errors
-          c879c61b05fa3a9a49fdb999db4c9c9f
-          # locked
+          SyntaxError
           >>> read_line('((1 2 3)') # Type SyntaxError if you think this errors
-          c879c61b05fa3a9a49fdb999db4c9c9f
-          # locked
+          SyntaxError
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
@@ -134,14 +117,10 @@ test = {
         {
           'code': r"""
           >>> read_line("(+ (- 2 3) 1)")
-          bf1795a56ce544a74a4d22988ad22865
-          # locked
-          # choice: Pair('+', Pair('-', Pair(2, Pair(3, Pair(1, nil)))))
-          # choice: Pair('+', Pair('-', Pair(2, Pair(3, nil))), Pair(1, nil))
-          # choice: Pair('+', Pair(Pair('-', Pair(2, Pair(3, nil))), Pair(1, nil)))
+          Pair('+', Pair(Pair('-', Pair(2, Pair(3, nil))), Pair(1, nil)))
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {

@@ -7,22 +7,12 @@ test = {
         {
           'code': r"""
           >>> read_line(" 'x ")
-          4651d38a7096fa45c90a7d35226ce584
-          # locked
-          # choice: Pair('x', nil)
-          # choice: 'x'
-          # choice: Pair('quote', 'x')
-          # choice: Pair('quote', Pair('x', nil))
+          Pair('quote', Pair('x', nil))
           >>> read_line(" '(a b) ")
-          ed7b00df85ddd6e3ae5191d239b31901
-          # locked
-          # choice: Pair('a', Pair('b', nil))
-          # choice: Pair('quote', Pair(Pair('a', Pair('b', nil)), nil))
-          # choice: Pair('quote', Pair('a', 'b'))
-          # choice: Pair('quote', Pair('a', Pair('b', nil)))
+          Pair('quote', Pair(Pair('a', Pair('b', nil)), nil))
           """,
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'multiline': False
         },
         {
