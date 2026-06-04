@@ -1,0 +1,33 @@
+link: "null"
+
+?link_first: "null"
+
+?link_rest: "null"
+
+%ignore /\s+/
+%import common.NUMBER
+
+
+tree_node: "null"
+
+
+?label: "null"
+
+branches: "null"
+
+%ignore /\s+/
+%import common.NUMBER
+
+
+rstring: "r\"" regex* "\""
+
+?regex: character | word
+
+character: LETTER | NUMBER
+word: WORD
+
+%ignore /\s+/
+%import common.LETTER
+%import common.NUMBER
+%import common.WORD
+

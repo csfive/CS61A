@@ -1,0 +1,28 @@
+{
+    "name": "Homework 8",
+    "endpoint": "cal/cs61a/sp22/hw08",
+    "src": [
+        "hw08.py",
+        "hw08.lark"
+    ],
+    "tests": {
+        "hw*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "cs_classes",
+        "match_time",
+        "linked_list",
+        "tree",
+        "regex_grouping",
+        "regex_classes"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "grading",
+        "analytics",
+        "unlock",
+        "backup"
+    ]
+}

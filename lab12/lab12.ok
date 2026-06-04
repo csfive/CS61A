@@ -1,0 +1,26 @@
+{
+    "name": "Lab 12",
+    "endpoint": "cal/cs61a/sp22/lab12",
+    "src": [
+        "lab12.scm"
+    ],
+    "tests": {
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "abstractions",
+        "city_distance",
+        "city_closer",
+        "teacher_student_selectors",
+        "student_attend_class",
+        "teacher_hold_class"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "grading",
+        "analytics",
+        "unlock",
+        "backup"
+    ]
+}

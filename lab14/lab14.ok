@@ -1,0 +1,28 @@
+{
+    "name": "Lab 14",
+    "endpoint": "cal/cs61a/sp22/lab14",
+    "src": [
+        "lab14.py",
+        "lab14.scm",
+        "lab14.lark"
+    ],
+    "tests": {
+        "lab*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "split-at",
+        "filter_odd",
+        "swap",
+        "address_oneline",
+        "wwpd-bnf"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "unlock",
+        "grading",
+        "analytics",
+        "backup"
+    ]
+}

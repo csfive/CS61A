@@ -1,0 +1,26 @@
+{
+    "name": "Homework 7",
+    "endpoint": "cal/cs61a/sp22/hw07",
+    "src": [
+        "hw07.scm"
+    ],
+    "tests": {
+        "hw*.py": "doctest",
+        "tests/*.py": "ok_test"
+    },
+    "default_tests": [
+        "kwlist_construct",
+        "kwlist_add",
+        "prune-expr",
+        "curry_cook",
+        "curry_consume"
+    ],
+    "protocols": [
+        "restore",
+        "file_contents",
+        "grading",
+        "analytics",
+        "unlock",
+        "backup"
+    ]
+}
