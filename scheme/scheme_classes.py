@@ -1,10 +1,9 @@
-import builtins
-
 from pair import *
 
 
 class SchemeError(Exception):
     """Exception indicating an error in a Scheme program."""
+
 
 ################
 # Environments #
@@ -21,22 +20,25 @@ class Frame:
 
     def __repr__(self):
         if self.parent is None:
-            return '<Global Frame>'
-        s = sorted(['{0}: {1}'.format(k, v) for k, v in self.bindings.items()])
-        return '<{{{0}}} -> {1}>'.format(', '.join(s), repr(self.parent))
+            return "<Global Frame>"
+        s = sorted(["{0}: {1}".format(k, v) for k, v in self.bindings.items()])
+        return "<{{{0}}} -> {1}>".format(", ".join(s), repr(self.parent))
 
     def define(self, symbol, value):
         """Define Scheme SYMBOL to have VALUE."""
         # BEGIN PROBLEM 1
-        "*** YOUR CODE HERE ***"
+        self.bindings[symbol] = value
         # END PROBLEM 1
 
     def lookup(self, symbol):
         """Return the value bound to SYMBOL. Errors if SYMBOL is not found."""
         # BEGIN PROBLEM 1
-        "*** YOUR CODE HERE ***"
+        if symbol in self.bindings:
+            return self.bindings[symbol]
+        elif self.parent is not None:
+            return self.parent.lookup(symbol)
         # END PROBLEM 1
-        raise SchemeError('unknown identifier: {0}'.format(symbol))
+        raise SchemeError("unknown identifier: {0}".format(symbol))
 
     def make_child_frame(self, formals, vals):
         """Return a new local frame whose parent is SELF, in which the symbols
@@ -50,10 +52,15 @@ class Frame:
         <{a: 1, b: 2, c: 3} -> <Global Frame>>
         """
         if len(formals) != len(vals):
-            raise SchemeError('Incorrect number of arguments to function call')
+            raise SchemeError("Incorrect number of arguments to function call")
         # BEGIN PROBLEM 8
-        "*** YOUR CODE HERE ***"
+        child = Frame(self)
+        while formals is not nil:
+            child.define(formals.first, vals.first)
+            formals, vals = formals.rest, vals.rest
+        return child
         # END PROBLEM 8
+
 
 ##############
 # Procedures #
@@ -67,13 +74,13 @@ class Procedure:
 class BuiltinProcedure(Procedure):
     """A Scheme procedure defined as a Python function."""
 
-    def __init__(self, py_func, expect_env=False, name='builtin'):
+    def __init__(self, py_func, expect_env=False, name="builtin"):
         self.name = name
         self.py_func = py_func
         self.expect_env = expect_env
 
     def __str__(self):
-        return '#[{0}]'.format(self.name)
+        return "#[{0}]".format(self.name)
 
 
 class LambdaProcedure(Procedure):
@@ -85,19 +92,21 @@ class LambdaProcedure(Procedure):
         starts with Frame ENV."""
         assert isinstance(env, Frame), "env must be of type Frame"
 
-        from scheme_utils import validate_type, scheme_listp
-        validate_type(formals, scheme_listp, 0, 'LambdaProcedure')
-        validate_type(body, scheme_listp, 1, 'LambdaProcedure')
+        from scheme_utils import scheme_listp, validate_type
+
+        validate_type(formals, scheme_listp, 0, "LambdaProcedure")
+        validate_type(body, scheme_listp, 1, "LambdaProcedure")
         self.formals = formals
         self.body = body
         self.env = env
 
     def __str__(self):
-        return str(Pair('lambda', Pair(self.formals, self.body)))
+        return str(Pair("lambda", Pair(self.formals, self.body)))
 
     def __repr__(self):
-        return 'LambdaProcedure({0}, {1}, {2})'.format(
-            repr(self.formals), repr(self.body), repr(self.env))
+        return "LambdaProcedure({0}, {1}, {2})".format(
+            repr(self.formals), repr(self.body), repr(self.env)
+        )
 
 
 class MuProcedure(Procedure):
@@ -119,8 +128,7 @@ class MuProcedure(Procedure):
         self.body = body
 
     def __str__(self):
-        return str(Pair('mu', Pair(self.formals, self.body)))
+        return str(Pair("mu", Pair(self.formals, self.body)))
 
     def __repr__(self):
-        return 'MuProcedure({0}, {1})'.format(
-            repr(self.formals), repr(self.body))
+        return "MuProcedure({0}, {1})".format(repr(self.formals), repr(self.body))

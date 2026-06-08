@@ -1,7 +1,7 @@
+from scheme_builtins import *
+from scheme_classes import *
 from scheme_eval_apply import *
 from scheme_utils import *
-from scheme_classes import *
-from scheme_builtins import *
 
 #################
 # Special Forms #
@@ -31,22 +31,33 @@ def do_define_form(expressions, env):
     >>> scheme_eval(read_line("(f 3)"), env)
     5
     """
-    validate_form(expressions, 2)  # Checks that expressions is a list of length at least 2
+    validate_form(
+        expressions, 2
+    )  # Checks that expressions is a list of length at least 2
     signature = expressions.first
     if scheme_symbolp(signature):
         # assigning a name to a value e.g. (define x (+ 1 2))
-        validate_form(expressions, 2, 2)  # Checks that expressions is a list of length exactly 2
+        validate_form(
+            expressions, 2, 2
+        )  # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 4
-        "*** YOUR CODE HERE ***"
+        value = scheme_eval(expressions.rest.first, env)
+        env.define(signature, value)
+        return signature
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
-        "*** YOUR CODE HERE ***"
+        name = signature.first
+        formals = signature.rest
+        validate_formals(formals)
+        procedure = LambdaProcedure(formals, expressions.rest, env)
+        env.define(name, procedure)
+        return name
         # END PROBLEM 10
     else:
         bad_signature = signature.first if isinstance(signature, Pair) else signature
-        raise SchemeError('non-symbol: {0}'.format(bad_signature))
+        raise SchemeError("non-symbol: {0}".format(bad_signature))
 
 
 def do_quote_form(expressions, env):
@@ -58,7 +69,7 @@ def do_quote_form(expressions, env):
     """
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 5
-    "*** YOUR CODE HERE ***"
+    return expressions.first
     # END PROBLEM 5
 
 
@@ -86,7 +97,7 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 7
-    "*** YOUR CODE HERE ***"
+    return LambdaProcedure(formals, expressions.rest, env)
     # END PROBLEM 7
 
 
@@ -121,7 +132,13 @@ def do_and_form(expressions, env):
     False
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    result = True
+    while expressions is not nil:
+        result = scheme_eval(expressions.first, env)
+        if is_scheme_false(result):
+            return result
+        expressions = expressions.rest
+    return result
     # END PROBLEM 12
 
 
@@ -140,7 +157,13 @@ def do_or_form(expressions, env):
     6
     """
     # BEGIN PROBLEM 12
-    "*** YOUR CODE HERE ***"
+    result = False
+    while expressions is not nil:
+        result = scheme_eval(expressions.first, env)
+        if is_scheme_true(result):
+            return result
+        expressions = expressions.rest
+    return result
     # END PROBLEM 12
 
 
@@ -153,15 +176,17 @@ def do_cond_form(expressions, env):
     while expressions is not nil:
         clause = expressions.first
         validate_form(clause, 1)
-        if clause.first == 'else':
+        if clause.first == "else":
             test = True
             if expressions.rest != nil:
-                raise SchemeError('else must be last')
+                raise SchemeError("else must be last")
         else:
             test = scheme_eval(clause.first, env)
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
-            "*** YOUR CODE HERE ***"
+            if clause.rest is nil:
+                return test
+            return eval_all(clause.rest, env)
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -184,10 +209,18 @@ def make_let_frame(bindings, env):
     list in a let expression: each item must be a list containing a symbol
     and a Scheme expression."""
     if not scheme_listp(bindings):
-        raise SchemeError('bad bindings list in let form')
+        raise SchemeError("bad bindings list in let form")
     names = vals = nil
     # BEGIN PROBLEM 14
-    "*** YOUR CODE HERE ***"
+    while bindings is not nil:
+        binding = bindings.first
+        validate_form(binding, 2, 2)
+        name = binding.first
+        value = scheme_eval(binding.rest.first, env)
+        names = Pair(name, names)
+        vals = Pair(value, vals)
+        bindings = bindings.rest
+    validate_formals(names)
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
@@ -209,18 +242,19 @@ def do_define_macro(expressions, env):
 def do_quasiquote_form(expressions, env):
     """Evaluate a quasiquote form with parameters EXPRESSIONS in
     Frame ENV."""
+
     def quasiquote_item(val, env, level):
         """Evaluate Scheme expression VAL that is nested at depth LEVEL in
         a quasiquote form in Frame ENV."""
         if not scheme_pairp(val):
             return val
-        if val.first == 'unquote':
+        if val.first == "unquote":
             level -= 1
             if level == 0:
                 expressions = val.rest
                 validate_form(expressions, 1, 1)
                 return scheme_eval(expressions.first, env)
-        elif val.first == 'quasiquote':
+        elif val.first == "quasiquote":
             level += 1
 
         return val.map(lambda elem: quasiquote_item(elem, env, level))
@@ -230,12 +264,13 @@ def do_quasiquote_form(expressions, env):
 
 
 def do_unquote(expressions, env):
-    raise SchemeError('unquote outside of quasiquote')
+    raise SchemeError("unquote outside of quasiquote")
 
 
 #################
 # Dynamic Scope #
 #################
+
 
 def do_mu_form(expressions, env):
     """Evaluate a mu form."""
@@ -243,22 +278,22 @@ def do_mu_form(expressions, env):
     formals = expressions.first
     validate_formals(formals)
     # BEGIN PROBLEM 11
-    "*** YOUR CODE HERE ***"
+    return MuProcedure(formals, expressions.rest)
     # END PROBLEM 11
 
 
 SPECIAL_FORMS = {
-    'and': do_and_form,
-    'begin': do_begin_form,
-    'cond': do_cond_form,
-    'define': do_define_form,
-    'if': do_if_form,
-    'lambda': do_lambda_form,
-    'let': do_let_form,
-    'or': do_or_form,
-    'quote': do_quote_form,
-    'define-macro': do_define_macro,
-    'quasiquote': do_quasiquote_form,
-    'unquote': do_unquote,
-    'mu': do_mu_form,
+    "and": do_and_form,
+    "begin": do_begin_form,
+    "cond": do_cond_form,
+    "define": do_define_form,
+    "if": do_if_form,
+    "lambda": do_lambda_form,
+    "let": do_let_form,
+    "or": do_or_form,
+    "quote": do_quote_form,
+    "define-macro": do_define_macro,
+    "quasiquote": do_quasiquote_form,
+    "unquote": do_unquote,
+    "mu": do_mu_form,
 }
