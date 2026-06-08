@@ -109,6 +109,12 @@ class LambdaProcedure(Procedure):
         )
 
 
+class MacroProcedure(LambdaProcedure):
+    """A macro procedure."""
+
+    pass
+
+
 class MuProcedure(Procedure):
     """A procedure defined by a mu expression, which has dynamic scope.
      _________________

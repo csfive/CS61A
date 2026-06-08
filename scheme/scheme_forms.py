@@ -239,7 +239,19 @@ def do_define_macro(expressions, env):
     1
     """
     # BEGIN PROBLEM OPTIONAL_2
-    "*** YOUR CODE HERE ***"
+    validate_form(expressions, 2)
+    signature = expressions.first
+
+    if not isinstance(signature, Pair) or not scheme_symbolp(signature.first):
+        raise SchemeError("invalid macro signature")
+
+    name = signature.first
+    formals = signature.rest
+    validate_formals(formals)
+
+    procedure = MacroProcedure(formals, expressions.rest, env)
+    env.define(name, procedure)
+    return name
     # END PROBLEM OPTIONAL_2
 
 
