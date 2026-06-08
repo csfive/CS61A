@@ -7,7 +7,12 @@
 ;; Returns a list of two-element lists
 (define (enumerate s)
   ; BEGIN PROBLEM 15
-  'replace-this-line
+  (define (helper s index)
+    (if (null? s)
+        nil
+        (cons (list index (car s))
+              (helper (cdr s) (+ index 1)))))
+  (helper s 0)
   )
   ; END PROBLEM 15
 
@@ -17,7 +22,15 @@
 ;; the merged lists.
 (define (merge inorder? list1 list2)
   ; BEGIN PROBLEM 16
-  'replace-this-line
+  (cond
+    ((null? list1) list2)
+    ((null? list2) list1)
+    ((inorder? (car list1) (car list2))
+     (cons (car list1)
+           (merge inorder? (cdr list1) list2)))
+    (else
+     (cons (car list2)
+           (merge inorder? list1 (cdr list2)))))
   )
   ; END PROBLEM 16
 
@@ -37,12 +50,12 @@
 (define (let-to-lambda expr)
   (cond ((atom? expr)
          ; BEGIN PROBLEM 17
-         'replace-this-line
+         expr
          ; END PROBLEM 17
          )
         ((quoted? expr)
          ; BEGIN PROBLEM 17
-         'replace-this-line
+         expr
          ; END PROBLEM 17
          )
         ((or (lambda? expr)
@@ -51,19 +64,25 @@
                (params (cadr expr))
                (body   (cddr expr)))
            ; BEGIN PROBLEM 17
-           'replace-this-line
+           (cons form
+                 (cons params
+                       (map let-to-lambda body)))
            ; END PROBLEM 17
            ))
         ((let? expr)
          (let ((values (cadr expr))
                (body   (cddr expr)))
            ; BEGIN PROBLEM 17
-           'replace-this-line
+           (cons
+             (cons 'lambda
+                   (cons (map car values)
+                         (map let-to-lambda body)))
+             (map let-to-lambda (map cadr values)))
            ; END PROBLEM 17
            ))
         (else
          ; BEGIN PROBLEM 17
-         'replace-this-line
+         (map let-to-lambda expr)
          ; END PROBLEM 17
          )))
 
