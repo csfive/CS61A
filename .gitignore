@@ -1,5 +1,6 @@
 .ok*
 test_log
+zips/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
